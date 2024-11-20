@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="d-flex flex-wrap justify-content-center px-5">
+
+  {% for post in data %}
+
+
+  <div class="col-sm-3 mb-3 mb-sm-0 px-5 pt-5">
+    <div class="card">
+      <div class="card-body mx-2">
+        <p class="card-text">Task ID : {{post.id}}</p>
+        <h5 class="card-title"> Task Title :{{post.Title}}</h5>
+        <p class="card-text">Task Description : {{post.Description}}</p>
+        <p class="card-text"> Assign Date : {{post.Assign_date}}</p>
+        <ul>
+        Category :
+        {% for cat in post.Categories.all %}
+        <li class="text-muted ms-2">{{ cat.Category_name}}</li>
+        {% endfor %}
+        </ul>
+       
+        {% if not post.Is_completed %}
+        <a href="{% url 'editTask' post.id%}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'deleteTask' post.id%}" class="btn btn-danger">Delete</a>
+        {% else %}
+        <p class="">Completed</p>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+
+
+  {% endblock %}
